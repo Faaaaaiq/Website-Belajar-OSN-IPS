@@ -2,32 +2,63 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="osn_ips_faaiq" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSN IPS - SMP Muh Al Mujahidin-By: Faaiq</title>
     <style>
+        * { box-sizing: border-box; }
+        
         body { 
-            font-family: sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
             background-color: #F2F2F7; 
             color: #1A1A1A; 
-            margin: 0; padding: 20px 25px 150px 25px;
+            margin: 0; 
+            padding: 20px 20px 150px 20px;
         }
         
         /* Header & Menu Atas */
-        .header { margin-top: 40px; margin-bottom: 20px; }
-        .header .osn-tag { font-size: 42px; font-weight: 900; margin: 0; letter-spacing: -2px; line-height: 0.8; }
-        .header .sekolah-tag { color: #8E8E93; font-size: 10px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 8px; display: block; }
+        .header { margin-top: 30px; margin-bottom: 20px; }
+        .header .osn-tag { 
+            font-size: clamp(32px, 10vw, 42px); 
+            font-weight: 900; 
+            margin: 0; 
+            letter-spacing: -2px; 
+            line-height: 0.8; 
+        }
+        .header .sekolah-tag { 
+            color: #8E8E93; 
+            font-size: clamp(9px, 2.5vw, 10px); 
+            font-weight: bold; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+            margin-top: 8px; 
+            display: block; 
+        }
 
         /* Menu Kategori di Atas */
         .menu-atas { 
-            display: flex; gap: 10px; margin-bottom: 30px; 
-            overflow-x: auto; padding-bottom: 5px; scrollbar-width: none;
+            display: flex; 
+            gap: 8px; 
+            margin-bottom: 20px; 
+            overflow-x: auto; 
+            padding-bottom: 10px; 
+            scrollbar-width: none;
+            scroll-behavior: smooth;
         }
         .menu-atas::-webkit-scrollbar { display: none; }
         .btn-kat { 
-            background: #E5E5EA; border: none; padding: 10px 18px; 
-            border-radius: 12px; font-size: 12px; font-weight: 800; 
-            color: #8E8E93; cursor: pointer; white-space: nowrap;
+            background: #E5E5EA; 
+            border: none; 
+            padding: 10px 16px; 
+            border-radius: 10px; 
+            font-size: clamp(11px, 2.5vw, 12px); 
+            font-weight: 800; 
+            color: #8E8E93; 
+            cursor: pointer; 
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
         }
+        .btn-kat:active { opacity: 0.7; }
         .btn-kat.active { background: #000; color: #FFF; }
 
         /* Kontainer Halaman */
@@ -35,36 +66,125 @@
         .page.active { display: block; }
 
         .card { 
-            background: #FFFFFF; border-radius: 20px; padding: 0; 
-            margin-bottom: 15px; display: flex; align-items: stretch;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.04); overflow: hidden;
+            background: #FFFFFF; 
+            border-radius: 16px; 
+            padding: 0; 
+            margin-bottom: 12px; 
+            display: flex; 
+            align-items: stretch;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04); 
+            overflow: hidden;
         }
-        .materi-area { padding: 25px; flex: 1; cursor: pointer; }
+        .materi-area { 
+            padding: clamp(15px, 4vw, 25px); 
+            flex: 1; 
+            cursor: pointer; 
+            display: flex;
+            align-items: center;
+        }
         .materi-area:active { background-color: #F9F9F9; }
-        .materi-nama { font-size: 20px; font-weight: 800; color: #1A1A1A; display: block; }
+        .materi-nama { 
+            font-size: clamp(16px, 4vw, 20px); 
+            font-weight: 800; 
+            color: #1A1A1A; 
+            display: block; 
+            word-break: break-word;
+        }
 
         .btn-del-box {
-            display: flex; align-items: center; justify-content: center;
-            padding: 0 20px; background: #FFF; border-left: 1px solid #F2F2F7;
-            cursor: pointer; color: #D1D1D6; font-size: 18px; font-weight: bold;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            padding: 0 15px; 
+            background: #FFF; 
+            border-left: 1px solid #F2F2F7;
+            cursor: pointer; 
+            color: #D1D1D6; 
+            font-size: clamp(16px, 5vw, 18px); 
+            font-weight: bold;
+            flex-shrink: 0;
         }
 
         .btn-plus { 
-            position: fixed; bottom: 110px; right: 25px; 
-            width: 65px; height: 65px; background: #000; color: #FFF; 
-            border-radius: 22px; font-size: 35px; border: none; z-index: 100;
+            position: fixed; 
+            bottom: 110px; 
+            right: 20px; 
+            width: clamp(55px, 15vw, 65px); 
+            height: clamp(55px, 15vw, 65px); 
+            background: #000; 
+            color: #FFF; 
+            border-radius: 20px; 
+            font-size: clamp(28px, 8vw, 35px); 
+            border: none; 
+            z-index: 100;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .btn-plus:active { transform: scale(0.95); }
+
+        /* Navigasi Bawah */
+        .nav-bawah { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            background: rgba(255,255,255,0.96); 
+            height: auto;
+            min-height: 80px;
+            display: flex; 
+            justify-content: space-around; 
+            align-items: center;
+            padding: 10px 0;
+            border-top: 1px solid #E5E5EA; 
+            z-index: 90; 
+            backdrop-filter: blur(10px);
+        }
+        .btn-nav { 
+            background: none; 
+            border: none; 
+            font-weight: 800; 
+            font-size: clamp(10px, 2.5vw, 11px); 
+            color: #000; 
+            cursor: pointer;
+            padding: 5px;
+        }
+        .btn-nav:active { opacity: 0.6; }
+        .btn-lens { 
+            border: 2.5px solid #000; 
+            border-radius: 20px; 
+            padding: 8px 16px; 
+            font-size: clamp(9px, 2.5vw, 11px);
         }
 
-        /* Navigasi Bawah Kembali ke Awal */
-        .nav-bawah { 
-            position: fixed; bottom: 0; left: 0; right: 0; 
-            background: rgba(255,255,255,0.96); height: 85px;
-            display: flex; justify-content: space-around; align-items: center;
-            border-top: 1px solid #E5E5EA; z-index: 90; backdrop-filter: blur(10px);
+        /* Media Queries untuk berbagai ukuran */
+        @media (max-width: 480px) {
+            body { padding: 15px 15px 140px 15px; }
+            .header { margin-top: 20px; margin-bottom: 15px; }
+            .menu-atas { gap: 6px; margin-bottom: 15px; }
+            .btn-kat { padding: 8px 12px; }
+            .card { margin-bottom: 10px; }
+            .nav-bawah { min-height: 75px; padding: 8px 0; }
         }
-        .btn-nav { background: none; border: none; font-weight: 800; font-size: 11px; color: #000; }
-        .btn-lens { border: 2.5px solid #000; border-radius: 25px; padding: 10px 20px; }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            body { padding: 25px 25px 150px 25px; }
+            .header { margin-top: 35px; }
+        }
+
+        @media (min-width: 769px) {
+            body { 
+                max-width: 600px; 
+                margin: 0 auto; 
+                padding: 30px 25px 170px 25px;
+            }
+        }
+
+        /* Touch-friendly sizes */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-nav { padding: 10px; }
+            .btn-kat { padding: 12px 18px; }
+        }
     </style>
 </head>
 <body>
@@ -86,7 +206,7 @@
     <div id="p3" class="page"><div id="list-3"></div></div>
     <div id="p4" class="page"><div id="list-4"></div></div>
 
-    <button class="btn-plus" onclick="tambahItem()">+</button>
+    <button class="btn-plus" onclick="tambahItem()" title="Tambah Materi">+</button>
 
     <div class="nav-bawah">
         <button class="btn-nav" onclick="window.scrollTo({top:0, behavior:'smooth'})">HOME</button>
@@ -148,20 +268,4 @@
                     var card = document.createElement('div');
                     card.className = "card";
                     card.innerHTML = 
-                        '<div class="materi-area" onclick="salin(\'' + item.nama + '\')">' +
-                            '<span class="materi-nama">' + item.nama + '</span>' +
-                        '</div>' +
-                        '<div class="btn-del-box" onclick="hapusItem(' + item.id + ', \'' + item.nama + '\')">✕</div>';
-                    box.appendChild(card);
-                }
-            });
-        }
-
-        function resetSemua() {
-            if(confirm("Hapus seluruh data?")) { localStorage.removeItem(DB); muatData(); }
-        }
-
-        window.onload = muatData;
-    </script>
-</body>
-</html>
+                        '<div class="materi-area" onclick="salin(\'' + item.nama.replace(/'/g, "\\'") + '\')">
